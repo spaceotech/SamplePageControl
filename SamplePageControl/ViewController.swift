@@ -28,27 +28,27 @@ class ViewController: UIViewController, UIScrollViewDelegate {
     func loadScrollView() {
         let pageCount : CGFloat = CGFloat(arrImages.count)
         
-        scrMain.backgroundColor = UIColor.clearColor()
+        scrMain.backgroundColor = UIColor.clear
         scrMain.delegate = self
-        scrMain.pagingEnabled = true
-        scrMain.contentSize = CGSizeMake(scrMain.frame.size.width * pageCount, scrMain.frame.size.height)
+        scrMain.isPagingEnabled = true
+        scrMain.contentSize = CGSize(width: scrMain.frame.size.width * pageCount, height: scrMain.frame.size.height)
         scrMain.showsHorizontalScrollIndicator = false
         
         pageControl.numberOfPages = Int(pageCount)
-        pageControl.addTarget(self, action: #selector(self.pageChanged), forControlEvents: .ValueChanged)
+        pageControl.addTarget(self, action: #selector(self.pageChanged), for: .valueChanged)
         
         for i in 0..<Int(pageCount) {
             print(self.scrMain.frame.size.width)
-            let image = UIImageView(frame: CGRectMake(self.scrMain.frame.size.width * CGFloat(i), 0, self.scrMain.frame.size.width, self.scrMain.frame.size.height))
+            let image = UIImageView(frame: CGRect(x: self.scrMain.frame.size.width * CGFloat(i), y: 0, width: self.scrMain.frame.size.width, height: self.scrMain.frame.size.height))
             image.image = UIImage(named: arrImages[i])!
-            image.contentMode = UIViewContentMode.ScaleAspectFit
+            image.contentMode = UIViewContentMode.scaleAspectFit
             self.scrMain.addSubview(image)
         }
     }
     
     
     //MARK: UIScrollView Delegate
-    func scrollViewDidScroll(scrollView: UIScrollView) {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let viewWidth: CGFloat = scrollView.frame.size.width
         // content offset - tells by how much the scroll view has scrolled.
         let pageNumber = floor((scrollView.contentOffset.x - viewWidth / 50) / viewWidth) + 1
